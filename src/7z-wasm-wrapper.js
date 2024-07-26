@@ -4,6 +4,7 @@ import wasmUrl from '7z-wasm/7zz.wasm?url'
 const WORKING_DIRECTORY = '/working'
 
 let stdoutBuffer = ''
+let stderrBuffer = ''
 
 const module = {
   locateFile: (_p, _u) => wasmUrl,
@@ -14,6 +15,7 @@ const module = {
     },
   ],
   print: data => stdoutBuffer += data + '\n',
+  printErr: data => stderrBuffer += data + '\n',
 }
 let sevenZip = await SevenZip(module)
 // window.sevenZip = sevenZip
@@ -56,7 +58,9 @@ function parse7zList(input) {
     }
   });
 
-  files.push(fileInfo);
+  if (Object.keys(fileInfo).length > 0) {
+    files.push(fileInfo);
+  }
   return files;
 }
 
@@ -70,8 +74,14 @@ function listContents(name) {
   ]
 
   stdoutBuffer = ''
+  stderrBuffer = ''
   sevenZip.callMain(args)
 
+  if (stderrBuffer) {
+    let errorMsg = stderrBuffer.trim()
+    stderrBuffer = ''
+    throw new Error(errorMsg)
+  }
   const output = parse7zList(stdoutBuffer)
 
   const files = []
@@ -140,7 +150,14 @@ function extractFiles(name, paths) {
   console.debug("Calling 7z-wasm with", args)
 
   stdoutBuffer = ''
+  stderrBuffer = ''
   sevenZip.callMain(args)
+
+  if (stderrBuffer) {
+    let errorMsg = stderrBuffer.trim()
+    stderrBuffer = ''
+    throw new Error(errorMsg)
+  }
   console.debug("7z output:", stdoutBuffer)
 
   const files = []

@@ -1,4 +1,104 @@
-:root {
-  --spacing: 1.5rem;
-  --radius: 10px;
+#app {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  margin: 20px;
+}
+
+.file-picker {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.file-picker-label {
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.file-picker input[type="file"] {
+  display: none;
+}
+
+.file-tree {
+  list-style-type: none;
+  padding-left: 1em;
+}
+
+.bg-light {
+  background-color: #f9f9f9;
+}
+
+.bg-dark {
+  background-color: #e9e9e9;
+}
+
+.folder details {
+  margin-bottom: 5px;
+}
+
+.folder summary {
+  cursor: pointer;
+  font-weight: bold;
+  /* display: flex; */
+  align-items: center;
+}
+
+.folder-icon {
+  margin-right: 5px;
+}
+
+.folder-icon:before {
+  content: '📂';
+}
+
+.folder-icon.open:before {
+  content: '📂';
+  color: #FFD700;
+}
+
+.file {
+  margin-left: 20px;
+}
+
+.file-icon {
+  margin-right: 5px;
+}
+
+.file-icon:before {
+  content: '📄';
+}
+
+.action-button {
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.green {
+  background-color: #28A745;
+}
+
+.green:hover {
+  background-color: #218838;
+}
+
+.red {
+  background-color: #DC3545;
+}
+
+.red:hover {
+  background-color: #C82333;
+}
+
+.blue {
+  background-color: #007BFF;
+}
+
+.blue:hover {
+  background-color: #0056b3;
 }

@@ -27,32 +27,25 @@ function handleFileClicked(file) {
 </script>
 
 <template>
-  <li v-if="isFolder">
-    <details>
+  <li v-if="isFolder" class="folder">
+    <details :open="isOpen">
       <summary @click="toggle">
-        {{ model.name }}
+        <span class="file-name">
+          <span class="folder-icon" :class="{ open: isOpen }"></span>
+          {{ model.name }}
+        </span>
       </summary>
-      <ul :open="isOpen">
-        <FileTree class="item" v-for="model in model.children" :model="model" @file-clicked="handleFileClicked" />
+      <ul class="file-tree">
+        <FileTree v-for="model in model.children" :model="model" @file-clicked="handleFileClicked" />
       </ul>
     </details>
   </li>
-  <li v-else>
+  <li v-else class="file">
     <a href='#' @click.prevent="handleFileClicked(model)">
-      {{ model.name }}
+      <div class="file-name">
+        <span class="file-icon"></span>
+        {{ model.name }}
+      </div>
     </a>
   </li>
 </template>
-
-<style scoped>
-li {
-  display: block;
-  position: relative;
-  padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
-}
-
-ul {
-  margin-left: calc(var(--radius) - var(--spacing));
-  padding-left: 0;
-}
-</style>
